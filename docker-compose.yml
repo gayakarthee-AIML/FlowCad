@@ -1,0 +1,27 @@
+# docker compose up --build   ->  http://localhost:8080
+services:
+  backend:
+    build: ./backend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      FLOWCAD_OUTPUT_DIR: /data/output
+    volumes:
+      - flowcad-output:/data/output
+    # Not published: only reachable through the frontend's /api proxy.
+    # Uncomment to debug the API directly on http://localhost:8000
+    # ports: ["8000:8000"]
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "${FLOWCAD_PORT:-8080}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  flowcad-output:

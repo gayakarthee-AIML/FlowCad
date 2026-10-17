@@ -1,0 +1,6 @@
+# Runtime dependencies. Tested with Python 3.13; code targets Python 3.11+.
+cadquery==2.8.0          # CAD kernel (OpenCASCADE via OCP)
+pydantic==2.13.5
+fastapi==0.143.2
+uvicorn==0.53.0
+httpx==0.28.1            # Gemma 4 / DigitalOcean inference client
